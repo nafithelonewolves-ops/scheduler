@@ -534,6 +534,12 @@ export function useAppState() {
     return { total, done };
   }, [state]);
 
+  // Get current month data
+  const getMonthData = useCallback(() => {
+    const key = getYearMonthKey(state.viewYear, state.viewMonth);
+    return state.monthsData[key] || freshMonthData();
+  }, [state]);
+
   return {
     state, saveStatus, loading, update, toggleTheme,
     navMonth, goToToday,
