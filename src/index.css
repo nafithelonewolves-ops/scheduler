@@ -126,7 +126,7 @@ body {
 
 /* ── Card Styles ────────────────────────────────────────────────────────────── */
 .card {
-  background: var(--white);
+  background: #FFFFFF;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-card);
   border: 1px solid var(--border);
@@ -138,11 +138,21 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
+.dark .card {
+  background: #1F2937;
+  border-color: #374151;
+}
+
 .card-static {
-  background: var(--white);
+  background: #FFFFFF;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
+}
+
+.dark .card-static {
+  background: #1F2937;
+  border-color: #374151;
 }
 
 /* ── Button Styles ──────────────────────────────────────────────────────────── */

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './index.css';
 import { AuthProvider, useAuth } from './hooks/useAuth.jsx';
+import { LanguageProvider, useLanguage } from './hooks/useLanguage.jsx';
 import { useAppState } from './hooks/useAppState';
 import Nav           from './components/Nav';
 import MonthBar      from './components/MonthBar';
@@ -15,18 +16,9 @@ import AuthPage      from './components/AuthPage';
 import TicTacToeGate from './components/TicTacToeGate';
 import Toast, { useToast } from './components/Toast';
 
-const TABS = [
-  { id: 'weekly',   label: '📅 Weekly',    activeClass: 'bg-[#111] text-white border-[#111] dark:bg-[#E0E0E0] dark:text-[#111] dark:border-[#E0E0E0]' },
-  { id: 'calendar', label: '🗓 Calendar',   activeClass: 'bg-[#1D9E75] text-white border-[#1D9E75]' },
-  { id: 'tracker',  label: '📊 Tracker',   activeClass: 'bg-[#C0365A] text-white border-[#C0365A]' },
-  { id: 'notes',    label: '📝 Notes',     activeClass: 'bg-[#5B4EC8] text-white border-[#5B4EC8]' },
-  { id: 'manage',   label: '⚙️ Manage',    activeClass: 'bg-[#1A5FA8] text-white border-[#1A5FA8]' },
-  { id: 'archive',  label: '🗂 Archive',   activeClass: 'bg-[#2D5A27] text-white border-[#2D5A27]' },
-  { id: 'admin',    label: '👑 Admin',    activeClass: 'bg-[#E24B4A] text-white border-[#E24B4A]', adminOnly: true },
-];
-
 function AppContent() {
   const { user, profile, loading: authLoading, signOut, isAdmin } = useAuth();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('weekly');
   const [useLock, setUseLock] = useState(() => {
     return sessionStorage.getItem('khim_ttt_unlocked') === 'true';
@@ -46,6 +38,17 @@ function AppContent() {
   } = useAppState();
 
   const monthData = getMonthData();
+
+  // Tab configuration with translations
+  const TABS = [
+    { id: 'weekly',   label: `📅 ${t('weekly')}`,    activeClass: 'bg-[#111] text-white border-[#111] dark:bg-[#E0E0E0] dark:text-[#111] dark:border-[#E0E0E0]' },
+    { id: 'calendar', label: `🗓 ${t('calendar')}`,   activeClass: 'bg-[#1D9E75] text-white border-[#1D9E75]' },
+    { id: 'tracker',  label: `📊 ${t('tracker')}`,   activeClass: 'bg-[#C0365A] text-white border-[#C0365A]' },
+    { id: 'notes',    label: `📝 ${t('notes')}`,     activeClass: 'bg-[#5B4EC8] text-white border-[#5B4EC8]' },
+    { id: 'manage',   label: `⚙️ ${t('manage')}`,    activeClass: 'bg-[#1A5FA8] text-white border-[#1A5FA8]' },
+    { id: 'archive',  label: `🗂 ${t('archive')}`,   activeClass: 'bg-[#2D5A27] text-white border-[#2D5A27]' },
+    { id: 'admin',    label: `👑 ${t('admin')}`,    activeClass: 'bg-[#E24B4A] text-white border-[#E24B4A]', adminOnly: true },
+  ];
 
   // Show lock screen if enabled
   if (useLock && user) {
@@ -76,7 +79,7 @@ function AppContent() {
       <div className="min-h-screen bg-[#F7F6F2] dark:bg-[#121212] flex items-center justify-center">
         <div className="text-center">
           <div className="text-4xl animate-spin mb-4">⏳</div>
-          <div className="text-[#888] dark:text-[#AAA] font-sarabun">Loading your workspace...</div>
+          <div className="text-gray-600 dark:text-gray-400 font-sarabun">{t('loading')}...</div>
         </div>
       </div>
     );
@@ -98,7 +101,7 @@ function AppContent() {
   };
 
   // Filter tabs based on admin status
-  const visibleTabs = TABS.filter(t => !t.adminOnly || isAdmin);
+  const visibleTabs = TABS.filter(tab => !tab.adminOnly || isAdmin);
 
   return (
     <div className="min-h-screen bg-[#F7F6F2] dark:bg-[#121212]">
@@ -212,7 +215,9 @@ function AppContent() {
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
     </AuthProvider>
   );
 }

@@ -39,17 +39,17 @@ export default function WeeklyView({
     <div className="px-5 pb-20 animate-slide-up">
       {/* Stats Cards */}
       <div className="grid grid-cols-3 gap-3 my-4">
-        <div className="card-static p-4 text-center">
-          <div className="text-3xl font-bold text-[#1F2937] dark:text-[#F3F4F6] font-display">{todayTotal}</div>
-          <div className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1">Today's Tasks</div>
+        <div className="card-static p-4 text-center bg-white dark:bg-gray-800">
+          <div className="text-3xl font-bold text-gray-800 dark:text-gray-100 font-display">{todayTotal}</div>
+          <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Today's Tasks</div>
         </div>
-        <div className="card-static p-4 text-center" style={{ background: 'linear-gradient(135deg, #D1FAE5, #A7F3D0)' }}>
-          <div className="text-3xl font-bold text-[#065F46] font-display">{todayDone}</div>
-          <div className="text-xs text-[#047857] mt-1">Completed</div>
+        <div className="p-4 text-center rounded-2xl border border-green-200 dark:border-green-800" style={{ background: 'linear-gradient(135deg, #D1FAE5, #A7F3D0)' }}>
+          <div className="text-3xl font-bold text-green-800 font-display">{todayDone}</div>
+          <div className="text-xs text-green-700 mt-1">Completed</div>
         </div>
-        <div className="card-static p-4 text-center" style={{ background: 'linear-gradient(135deg, #EDE9FE, #DDD6FE)' }}>
-          <div className="text-3xl font-bold text-[#5B21B6] font-display">{pct}%</div>
-          <div className="text-xs text-[#6D28D9] mt-1">Progress</div>
+        <div className="p-4 text-center rounded-2xl border border-purple-200 dark:border-purple-800" style={{ background: 'linear-gradient(135deg, #EDE9FE, #DDD6FE)' }}>
+          <div className="text-3xl font-bold text-purple-800 font-display">{pct}%</div>
+          <div className="text-xs text-purple-700 mt-1">Progress</div>
         </div>
       </div>
 
